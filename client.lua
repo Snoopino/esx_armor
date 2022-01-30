@@ -13,7 +13,7 @@ RegisterNetEvent('esx_armor:setJoinArmor')
 AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
     local playerPed = PlayerPedId()
 
-    Citizen.Wait(10000)
+    Citizen.Wait(10000) -- Please Do Not Touch!
     SetEntityHealth(playerPed, tonumber(health))
     SetPedArmour(playerPed, tonumber(armour))
     xPlayer = true
@@ -25,9 +25,9 @@ AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
                     if skin.bproof_1 ~= v.skin1 and skin.bproof_2 ~= v.skin2 then
                         TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
                         TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                        TriggerEvent('skinchanger:getSkin', function(skin)
+                        --[[TriggerEvent('skinchanger:getSkin', function(skin)
                             TriggerServerEvent('esx_skin:save', skin)
-                        end)
+                        end)]]
                     end
                 end
             else -- Female
@@ -35,9 +35,9 @@ AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
                     if skin.bproof_1 ~= v.skin1 and skin.bproof_2 ~= v.skin2 then
                         TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
                         TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                        TriggerEvent('skinchanger:getSkin', function(skin)
+                        --[[TriggerEvent('skinchanger:getSkin', function(skin)
                             TriggerServerEvent('esx_skin:save', skin)
-                        end)
+                        end)]]
                     end
                 end
             end
@@ -68,9 +68,9 @@ AddEventHandler('esx_armor:setArmor', function(id, type)
                     if skin.bproof_1 ~= v.skin1 and skin.bproof_2 ~= v.skin2 then
                         TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
                         TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                        TriggerEvent('skinchanger:getSkin', function(skin)
+                        --[[TriggerEvent('skinchanger:getSkin', function(skin)
                             TriggerServerEvent('esx_skin:save', skin)
-                        end)
+                        end)]]
                     end
                 end
             else -- Female
@@ -78,9 +78,9 @@ AddEventHandler('esx_armor:setArmor', function(id, type)
                     if skin.bproof_1 ~= v.skin1 and skin.bproof_2 ~= v.skin2 then
                         TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
                         TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                        TriggerEvent('skinchanger:getSkin', function(skin)
+                        --[[TriggerEvent('skinchanger:getSkin', function(skin)
                             TriggerServerEvent('esx_skin:save', skin)
-                        end)
+                        end)]]
                     end
                 end
             end
@@ -98,9 +98,9 @@ AddEventHandler('esx_armor:setArmor', function(id, type)
                     if skin.bproof_1 ~= v.skin1 and skin.bproof_2 ~= v.skin2 then
                         TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
                         TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                        TriggerEvent('skinchanger:getSkin', function(skin)
+                        --[[TriggerEvent('skinchanger:getSkin', function(skin)
                             TriggerServerEvent('esx_skin:save', skin)
-                        end)
+                        end)]]
                     end
                 end
             else -- Female
@@ -108,9 +108,9 @@ AddEventHandler('esx_armor:setArmor', function(id, type)
                     if skin.bproof_1 ~= v.skin1 and skin.bproof_2 ~= v.skin2 then
                         TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
                         TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                        TriggerEvent('skinchanger:getSkin', function(skin)
+                        --[[TriggerEvent('skinchanger:getSkin', function(skin)
                             TriggerServerEvent('esx_skin:save', skin)
-                        end)
+                        end)]]
                     end
                 end
             end
@@ -128,9 +128,9 @@ AddEventHandler('esx_armor:setArmor', function(id, type)
                     if skin.bproof_1 ~= v.skin1 and skin.bproof_2 ~= v.skin2 then
                         TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
                         TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                        TriggerEvent('skinchanger:getSkin', function(skin)
+                        --[[TriggerEvent('skinchanger:getSkin', function(skin)
                             TriggerServerEvent('esx_skin:save', skin)
-                        end)
+                        end)]]
                     end
                 end
             else -- Female
@@ -138,9 +138,9 @@ AddEventHandler('esx_armor:setArmor', function(id, type)
                     if skin.bproof_1 ~= v.skin1 and skin.bproof_2 ~= v.skin2 then
                         TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
                         TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                        TriggerEvent('skinchanger:getSkin', function(skin)
+                        --[[TriggerEvent('skinchanger:getSkin', function(skin)
                             TriggerServerEvent('esx_skin:save', skin)
-                        end)
+                        end)]]
                     end
                 end
             end
@@ -161,9 +161,9 @@ AddEventHandler('esx_armor:setDelArmor', function(id)
         if skin.bproof_1 ~= 0 then
             TriggerEvent('skinchanger:change', "bproof_1", 0)
             TriggerEvent('skinchanger:change', "bproof_2", 0)
-            TriggerEvent('skinchanger:getSkin', function(skin)
+            --[[TriggerEvent('skinchanger:getSkin', function(skin)
                 TriggerServerEvent('esx_skin:save', skin)
-            end)
+            end)]]
         end
     end)
 

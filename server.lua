@@ -13,6 +13,18 @@ AddEventHandler('esx:playerLoaded', function(playerId)
     end)
 end)
 
+--[[ESX.RegisterServerCallback('esx_armor:getDBArmor', function(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
+
+    MySQL.Async.fetchScalar("SELECT * FROM users WHERE identifier = @identifier", { 
+        ['@identifier'] = xPlayer.getIdentifier()
+        }, function(data)
+        if data[1] then
+            TriggerClientEvent('esx_armor:setJoinArmor', source, data[1].health, data[1].armour)
+        end
+    end)
+end)]]
+
 RegisterServerEvent('esx_armor:refreshArmour')
 AddEventHandler('esx_armor:refreshArmour', function(updateHealth, updateArmour)
     local xPlayer = ESX.GetPlayerFromId(source)
@@ -32,7 +44,7 @@ ESX.RegisterUsableItem('bulletproof', function(source)
     if hasItem.count == 0 then
         TriggerClientEvent('esx_armor:setArmor', source, 'bulletproof')
         xPlayer.removeInventoryItem('bulletproof', 1)
-        xPlayer.addInventoryItem("noarmor", 1)
+        --xPlayer.addInventoryItem("noarmor", 1)
         
         TriggerClientEvent('esx:showNotification', source, _U('used_armor'))
     else
@@ -48,7 +60,7 @@ ESX.RegisterUsableItem('bulletproof2', function(source)
     if hasItem.count == 0 then
         TriggerClientEvent('esx_armor:setArmor', source, 'bulletproof2')
         xPlayer.removeInventoryItem('bulletproof2', 1)
-        xPlayer.addInventoryItem("noarmor2", 1)
+        --xPlayer.addInventoryItem("noarmor2", 1)
         
         TriggerClientEvent('esx:showNotification', source, _U('used_armor'))
     else
@@ -64,7 +76,7 @@ ESX.RegisterUsableItem('bulletproofpolice', function(source)
     if hasItem.count == 0 then
         TriggerClientEvent('esx_armor:setArmor', source, 'bulletproofpolice')
         xPlayer.removeInventoryItem('bulletproofpolice', 1)
-        xPlayer.addInventoryItem("noarmorpolice", 1)
+        --xPlayer.addInventoryItem("noarmorpolice", 1)
         
         TriggerClientEvent('esx:showNotification', source, _U('used_armor'))
     else
