@@ -2,7 +2,7 @@ ESX = nil
 local xPlayer = false
 
 Citizen.CreateThread(function()
-    --local ESX = exports['es_extended']:getSharedObject()
+    --local ESX = exports['es_extended']:getSharedObject() -- Just a Test, don't touch!
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(0)
@@ -19,7 +19,7 @@ AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
     xPlayer = true
 
     if tonumber(armour) > 0 then
-        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
+        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
             if skin.sex == 0 then -- Male
                 for k,v in pairs(Config.Armors.male) do
                     if skin.bproof_1 ~= v.skin1 and skin.bproof_2 ~= v.skin2 then
@@ -45,24 +45,35 @@ AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
     end
 end)
 
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-        if xPlayer == true then
-            local playerPed = PlayerPedId()
-
-            TriggerServerEvent('esx_armor:refreshArmour', GetEntityHealth(playerPed), GetPedArmour(playerPed))
-            Citizen.Wait(Config.Refresh * 1000)
+if Config.EnableRefresh then
+    Citizen.CreateThread(function()
+        while true do
+            Citizen.Wait(0)
+            if xPlayer == true then
+                local playerPed = PlayerPedId()
+    
+                TriggerServerEvent('esx_armor:refreshArmour', GetEntityHealth(playerPed), GetPedArmour(playerPed))
+                Citizen.Wait(Config.Refresh * 1000)
+            end
         end
-    end
-end)
+    end)
+end
 
 RegisterNetEvent('esx_armor:setArmor')
 AddEventHandler('esx_armor:setArmor', function(id, type)
     local playerPed = PlayerPedId()
+    local lib = Config.Animations.lib
+    local anim = Config.Animations.anim
 
-    if type == 'bulletproof' then
-        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
+    ESX.Streaming.RequestAnimDict(lib, function()
+		TaskPlayAnim(playerPed, lib, anim, 8.0, 1.0, -1, 49, 0, false, false, false)
+		RemoveAnimDict(lib)
+	end)
+	Citizen.Wait(Config.Wait * 1000)
+	ClearPedTasks(playerPed)
+
+    if type == 'bproof_1' then
+        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
             if skin.sex == 0 then -- Male
                 for k,v in pairs(Config.Armors.male) do
                     if skin.bproof_1 ~= v.skin1 and skin.bproof_2 ~= v.skin2 then
@@ -86,13 +97,12 @@ AddEventHandler('esx_armor:setArmor', function(id, type)
             end
         end)
 
-        AddArmourToPed(playerPed, Config.Percent.bulletproof)
-	    SetPedArmour(playerPed, Config.Percent.bulletproof)
+        SetPedArmour(playerPed, Config.Percent.bproof_1)
         Citizen.Wait(100)
         TriggerServerEvent('esx_armor:refreshArmour', GetEntityHealth(playerPed), GetPedArmour(playerPed))
 
-    elseif type == 'bulletproof2' then
-        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
+    elseif type == 'bproof_2' then
+        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
             if skin.sex == 0 then -- Male
                 for k,v in pairs(Config.Armors.male) do
                     if skin.bproof_1 ~= v.skin1 and skin.bproof_2 ~= v.skin2 then
@@ -116,13 +126,12 @@ AddEventHandler('esx_armor:setArmor', function(id, type)
             end
         end)
 
-        AddArmourToPed(playerPed, Config.Percent.bulletproof2)
-	    SetPedArmour(playerPed, Config.Percent.bulletproof2)
+        SetPedArmour(playerPed, Config.Percent.bproof_2)
         Citizen.Wait(100)
         TriggerServerEvent('esx_armor:refreshArmour', GetEntityHealth(playerPed), GetPedArmour(playerPed))
 
-    elseif type == 'bulletproofpolice' then
-        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
+    elseif type == 'bproof_police' then
+        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
             if skin.sex == 0 then -- Male
                 for k,v in pairs(Config.Armors.malepolice) do
                     if skin.bproof_1 ~= v.skin1 and skin.bproof_2 ~= v.skin2 then
@@ -146,8 +155,7 @@ AddEventHandler('esx_armor:setArmor', function(id, type)
             end
         end)
 
-        AddArmourToPed(playerPed, Config.Percent.bulletproofpolice)
-	    SetPedArmour(playerPed, Config.Percent.bulletproofpolice)
+        SetPedArmour(playerPed, Config.Percent.bproof_police)
         Citizen.Wait(100)
         TriggerServerEvent('esx_armor:refreshArmour', GetEntityHealth(playerPed), GetPedArmour(playerPed))
     end
@@ -157,7 +165,7 @@ RegisterNetEvent('esx_armor:setDelArmor')
 AddEventHandler('esx_armor:setDelArmor', function(id)
     local playerPed = PlayerPedId()
 
-    ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
+    ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
         if skin.bproof_1 ~= 0 then
             TriggerEvent('skinchanger:change', "bproof_1", 0)
             TriggerEvent('skinchanger:change', "bproof_2", 0)
@@ -167,8 +175,7 @@ AddEventHandler('esx_armor:setDelArmor', function(id)
         end
     end)
 
-    AddArmourToPed(playerPed, 0)
-	SetPedArmour(playerPed, 0)
+    SetPedArmour(playerPed, 0)
     Citizen.Wait(100)
     TriggerServerEvent('esx_armor:refreshArmour', GetEntityHealth(playerPed), GetPedArmour(playerPed))
 end)

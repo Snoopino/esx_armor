@@ -13,7 +13,7 @@ AddEventHandler('esx:playerLoaded', function(playerId)
     end)
 end)
 
---[[ESX.RegisterServerCallback('esx_armor:getDBArmor', function(source)
+ESX.RegisterServerCallback('esx_armor:getDBArmor', function(source)
     local xPlayer = ESX.GetPlayerFromId(source)
 
     MySQL.Async.fetchScalar("SELECT * FROM users WHERE identifier = @identifier", { 
@@ -23,7 +23,7 @@ end)
             TriggerClientEvent('esx_armor:setJoinArmor', source, data[1].health, data[1].armour)
         end
     end)
-end)]]
+end)
 
 RegisterServerEvent('esx_armor:refreshArmour')
 AddEventHandler('esx_armor:refreshArmour', function(updateHealth, updateArmour)
@@ -42,9 +42,11 @@ ESX.RegisterUsableItem('bulletproof', function(source)
     local hasItem = xPlayer.getInventoryItem('noarmor')
     
     if hasItem.count == 0 then
-        TriggerClientEvent('esx_armor:setArmor', source, 'bulletproof')
-        xPlayer.removeInventoryItem('bulletproof', 1)
-        --xPlayer.addInventoryItem("noarmor", 1)
+        TriggerClientEvent('esx_armor:setArmor', source, 'bproof_1')
+
+        if Config.RemoveItem.bproof_1 then
+            xPlayer.removeInventoryItem('bulletproof', 1)
+        end
         
         TriggerClientEvent('esx:showNotification', source, _U('used_armor'))
     else
@@ -58,9 +60,11 @@ ESX.RegisterUsableItem('bulletproof2', function(source)
     local hasItem = xPlayer.getInventoryItem('noarmor')
     
     if hasItem.count == 0 then
-        TriggerClientEvent('esx_armor:setArmor', source, 'bulletproof2')
-        xPlayer.removeInventoryItem('bulletproof2', 1)
-        --xPlayer.addInventoryItem("noarmor2", 1)
+        TriggerClientEvent('esx_armor:setArmor', source, 'bproof_2')
+
+        if Config.RemoveItem.bproof_2 then
+            xPlayer.removeInventoryItem('bulletproof2', 1)
+        end
         
         TriggerClientEvent('esx:showNotification', source, _U('used_armor'))
     else
@@ -74,59 +78,15 @@ ESX.RegisterUsableItem('bulletproofpolice', function(source)
     local hasItem = xPlayer.getInventoryItem('noarmor')
     
     if hasItem.count == 0 then
-        TriggerClientEvent('esx_armor:setArmor', source, 'bulletproofpolice')
-        xPlayer.removeInventoryItem('bulletproofpolice', 1)
-        --xPlayer.addInventoryItem("noarmorpolice", 1)
+        TriggerClientEvent('esx_armor:setArmor', source, 'bproof_police')
+
+        if Config.RemoveItem.bproof_police then
+            xPlayer.removeInventoryItem('bulletproofpolice', 1)
+        end
         
         TriggerClientEvent('esx:showNotification', source, _U('used_armor'))
     else
         TriggerClientEvent('esx:showNotification', source, _U('has_armor'))
-    end
-end)
-
--- No Armor Vest
-ESX.RegisterUsableItem('noarmor', function(source)
-	local xPlayer = ESX.GetPlayerFromId(source)
-    local hasItem = xPlayer.getInventoryItem('armor')
-
-    if hasItem.count == 0 then
-        TriggerClientEvent('esx_armor:setDelArmor', source)
-        xPlayer.removeInventoryItem('noarmor', 1)
-        xPlayer.addInventoryItem("bulletproof", 1)
-        
-        TriggerClientEvent('esx:showNotification', source, _U('used_noarmor'))
-    else
-        TriggerClientEvent('esx:showNotification', source, _U('had_armor'))
-    end
-end)
-
-ESX.RegisterUsableItem('noarmor2', function(source)
-	local xPlayer = ESX.GetPlayerFromId(source)
-    local hasItem = xPlayer.getInventoryItem('armor')
-
-    if hasItem.count == 0 then
-        TriggerClientEvent('esx_armor:setDelArmor', source)
-        xPlayer.removeInventoryItem('noarmor2', 1)
-        xPlayer.addInventoryItem("bulletproof2", 1)
-        
-        TriggerClientEvent('esx:showNotification', source, _U('used_noarmor'))
-    else
-        TriggerClientEvent('esx:showNotification', source, _U('had_armor'))
-    end
-end)
-
-ESX.RegisterUsableItem('noarmorpolice', function(source)
-	local xPlayer = ESX.GetPlayerFromId(source)
-    local hasItem = xPlayer.getInventoryItem('armor')
-
-    if hasItem.count == 0 then
-        TriggerClientEvent('esx_armor:setDelArmor', source)
-        xPlayer.removeInventoryItem('noarmorpolice', 1)
-        xPlayer.addInventoryItem("bulletproofpolice", 1)
-        
-        TriggerClientEvent('esx:showNotification', source, _U('used_noarmor'))
-    else
-        TriggerClientEvent('esx:showNotification', source, _U('had_armor'))
     end
 end)
 
