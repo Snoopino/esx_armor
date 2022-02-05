@@ -6,9 +6,9 @@ Config.Debug = false
 ----------------------------------------------------------------
 -- If you want to remove Item after use
 Config.RemoveItem = {
-    bproof_1 = false, -- Item: bulletproof
+    bproof_1 = true, -- Item: bulletproof
     bproof_2 = true, -- Item: bulletproof2
-    bproof_police = false -- Item: bulletproofpolice
+    bproof_police = true -- Item: bulletproofpolice
 }
 ----------------------------------------------------------------
 -- How often Armor Status should be saved in database

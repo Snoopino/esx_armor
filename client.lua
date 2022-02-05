@@ -19,15 +19,11 @@ AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
     if tonumber(armour) > 0 then
         ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
             if skin.sex == 0 then -- Male
-                for k,v in pairs(Config.Armors.male) do
-                    TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
-                    TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                end
+                TriggerEvent('skinchanger:change', "bproof_1", Config.Armors.male.skin1)
+                TriggerEvent('skinchanger:change', "bproof_2", Config.Armors.male.skin2)
             else -- Female
-                for k,v in pairs(Config.Armors.female) do
-                    TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
-                    TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                end
+                TriggerEvent('skinchanger:change', "bproof_1", Config.Armors.female.skin1)
+                TriggerEvent('skinchanger:change', "bproof_2", Config.Armors.female.skin2)
             end
         end)
     end
@@ -64,15 +60,11 @@ AddEventHandler('esx_armor:setArmor', function(type)
         end
         ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
             if skin.sex == 0 then -- Male
-                for k,v in pairs(Config.Armors.male) do
-                    TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
-                    TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                end
+                TriggerEvent('skinchanger:change', "bproof_1", Config.Armors.male.skin1)
+                TriggerEvent('skinchanger:change', "bproof_2", Config.Armors.male.skin2)
             else -- Female
-                for k,v in pairs(Config.Armors.female) do
-                    TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
-                    TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                end
+                TriggerEvent('skinchanger:change', "bproof_1", Config.Armors.female.skin1)
+                TriggerEvent('skinchanger:change', "bproof_2", Config.Armors.female.skin2)
             end
         end)
 
@@ -84,17 +76,13 @@ AddEventHandler('esx_armor:setArmor', function(type)
         if Config.Debug then
             print('set bproof_2')
         end
-        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
+        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
             if skin.sex == 0 then -- Male
-                for k,v in pairs(Config.Armors.male) do
-                    TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
-                    TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                end
+                TriggerEvent('skinchanger:change', "bproof_1", Config.Armors.male.skin1)
+                TriggerEvent('skinchanger:change', "bproof_2", Config.Armors.male.skin2)
             else -- Female
-                for k,v in pairs(Config.Armors.female) do
-                    TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
-                    TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                end
+                TriggerEvent('skinchanger:change', "bproof_1", Config.Armors.female.skin1)
+                TriggerEvent('skinchanger:change', "bproof_2", Config.Armors.female.skin2)
             end
         end)
 
@@ -108,15 +96,11 @@ AddEventHandler('esx_armor:setArmor', function(type)
         end
         ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
             if skin.sex == 0 then -- Male
-                for k,v in pairs(Config.Armors.malepolice) do
-                    TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
-                    TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                end
+                TriggerEvent('skinchanger:change', "bproof_1", Config.Armors.malepolice.skin1)
+                TriggerEvent('skinchanger:change', "bproof_2", Config.Armors.malepolice.skin2)
             else -- Female
-                for k,v in pairs(Config.Armors.femalepolice) do
-                    TriggerEvent('skinchanger:change', "bproof_1", v.skin1)
-                    TriggerEvent('skinchanger:change', "bproof_2", v.skin2)
-                end
+                TriggerEvent('skinchanger:change', "bproof_1", Config.Armors.femalepolice.skin1)
+                TriggerEvent('skinchanger:change', "bproof_2", Config.Armors.femalepolice.skin2)
             end
         end)
 
