@@ -1,7 +1,7 @@
 # esx_armor
 FiveM Script - Usable Armor Vests & Status will be saved in Databse
 
-**Forum:** *Soon...*
+**Forum:** https://forum.cfx.re/t/release-esx-armor-script-usable-armor-vests-status-will-be-saved-in-databse/4812243
 
 ## Description
 * You can use the `armor` Item then you get `nobproof` Item and a Vest will be added to the Ped.
