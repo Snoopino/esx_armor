@@ -2,12 +2,13 @@ Config = {}
 ----------------------------------------------------------------
 Config.Locale = 'de'
 Config.VersionChecker = false
+Config.Debug = false
 ----------------------------------------------------------------
 -- If you want to remove Item after use
 Config.RemoveItem = {
-    bproof_1 = true, -- Item: bulletproof
+    bproof_1 = false, -- Item: bulletproof
     bproof_2 = true, -- Item: bulletproof2
-    bproof_police = true -- Item: bulletproofpolice
+    bproof_police = false -- Item: bulletproofpolice
 }
 ----------------------------------------------------------------
 -- How often Armor Status should be saved in database
@@ -19,7 +20,7 @@ Config.Armors = {
     male = {skin1 = 11, skin2 = 1}, -- Male
     female = {skin1 = 3, skin2 = 1}, -- Female
     malepolice = {skin1 = 12, skin2 = 3}, -- Male Police
-    femalepolice = {skin1 = 13, skin2 = 1}, -- Female Police
+    femalepolice = {skin1 = 13, skin2 = 1} -- Female Police
 }
 ----------------------------------------------------------------
 -- How much Armor a Player get from Item
@@ -30,7 +31,7 @@ Config.Percent = {
 }
 ----------------------------------------------------------------
 -- Animation for put on the Vest
-Config.Wait = 1 -- in seconds (default: 1 second)
+Config.AnimWait = 1 -- in seconds (default: 1 second)
 Config.Animations = {
     lib = 'clothingtie',
     anim = 'try_tie_neutral_a'
