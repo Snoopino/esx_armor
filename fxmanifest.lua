@@ -2,7 +2,7 @@ fx_version 'adamant'
 games { 'gta5' }
 
 author 'Musiker15'
-description 'ESX Armor'
+description 'ESX Armor | Usable Armor Vests & Status will be saved in Databse'
 version '1.1'
 
 shared_script {
