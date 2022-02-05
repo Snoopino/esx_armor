@@ -1,5 +1,5 @@
 # esx_armor
-FiveM Script - Usable Armor Vests | Status saved in Databse
+FiveM Script - Usable Armor Vests & Status will be saved in Databse
 
 **Forum:** *Soon...*
 
