@@ -113,12 +113,19 @@ end)
 RegisterNetEvent('esx_armor:setDelArmor')
 AddEventHandler('esx_armor:setDelArmor', function(id)
     local playerPed = PlayerPedId()
+    local lib = Config.Animations.lib
+    local anim = Config.Animations.anim
+
+    ESX.Streaming.RequestAnimDict(lib, function()
+		TaskPlayAnim(playerPed, lib, anim, 8.0, 1.0, -1, 49, 0, false, false, false)
+		RemoveAnimDict(lib)
+	end)
+	Citizen.Wait(Config.AnimWait * 1000)
+	ClearPedTasks(playerPed)
 
     ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
-        if skin.bproof_1 ~= 0 then
-            TriggerEvent('skinchanger:change', "bproof_1", 0)
-            TriggerEvent('skinchanger:change', "bproof_2", 0)
-        end
+        TriggerEvent('skinchanger:change', "bproof_1", 0)
+        TriggerEvent('skinchanger:change', "bproof_2", 0)
     end)
 
     SetPedArmour(playerPed, 0)
