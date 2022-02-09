@@ -44,6 +44,20 @@ AddEventHandler('esx_armor:refreshArmour', function(updateHealth, updateArmour)
     end
 end)
 
+RegisterServerEvent('esx_armor:delArmorItem')
+AddEventHandler('esx_armor:delArmorItem', function()
+    local xPlayer = ESX.GetPlayerFromId(source)
+    local hasItem = xPlayer.getInventoryItem('nobproof')
+
+    if hasItem.count > 0 then
+        xPlayer.removeInventoryItem('nobproof', 1)
+    end
+
+    if Config.Debug then
+        print('Armor Item deleted')
+    end
+end)
+
 -- Armor Vest 100%
 ESX.RegisterUsableItem('bulletproof', function(source)
 	local xPlayer = ESX.GetPlayerFromId(source)
