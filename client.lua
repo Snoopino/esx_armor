@@ -12,7 +12,7 @@ RegisterNetEvent('esx_armor:setJoinArmor')
 AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
     local playerPed = PlayerPedId()
 
-    Citizen.Wait(1000 * 10) -- Please Do Not Touch! // Set to 60 if you use Multichar.
+    Citizen.Wait(1000 * 10) -- Please Do Not Touch!
     SetEntityHealth(playerPed, tonumber(health))
     SetPedArmour(playerPed, tonumber(armour))
 
