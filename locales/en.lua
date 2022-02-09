@@ -1,4 +1,4 @@
 Locales ['en'] = {
-	['used_bproof'] = 'Du hast eine Kugelsichere Weste angezogen',
-	['used_nobproof'] = 'Du hast deine Kugelsichere Weste ausgezogen'
+	['used_bproof'] = 'You put on a bulletproof vest',
+	['used_nobproof'] = 'You took off your bulletproof vest'
 }
