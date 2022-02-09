@@ -7,7 +7,7 @@ FiveM Script - Usable Armor Vests & Status will be saved in Databse
 * You can use the `armor` Item then you get `nobproof` Item and a Vest will be added to the Ped.
 * With the `nobproof` Item then the Vest will be removed from Ped.
 * Script checks all `Config.Refresh` times your status and save it in database.
-* If armor status get to 0 then the Vest and the Item nobproof will be removed from ped.
+* If armor status gets to 0 then the Vest and the Item nobproof will be removed from ped.
 * If a Player relog then the Player get the saved status from database and a Vest will be added to the Ped.
 * Health and Armor will be saved in Databse.
 
