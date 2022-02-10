@@ -38,13 +38,13 @@ Citizen.CreateThread(function()
         if Config.EnableRefresh then
             TriggerServerEvent('esx_armor:refreshArmour', GetEntityHealth(playerPed), GetPedArmour(playerPed))
 
-            if playerArmor == 0 then
+            --[[if playerArmor == 0 then
                 if Config.Debug then
                     print('Armor are 0')
                 end
                 TriggerEvent('esx_armor:setDelArmor')
                 TriggerServerEvent('esx_armor:delArmorItem')
-            end
+            end]]
 
             Citizen.Wait(Config.Refresh * 1000)
         end
