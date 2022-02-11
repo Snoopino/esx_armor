@@ -38,15 +38,36 @@ Citizen.CreateThread(function()
         if Config.EnableRefresh then
             TriggerServerEvent('esx_armor:refreshArmour', GetEntityHealth(playerPed), GetPedArmour(playerPed))
 
-            --[[if playerArmor == 0 then
-                if Config.Debug then
-                    print('Armor are 0')
+            if Config.CheckRemoveArmor then
+                if playerArmor < 5 and playerArmor > 1 then
+                    if Config.Debug then
+                        print('Armor are 0')
+                    end
+                    TriggerEvent('esx_armor:setDelArmor')
+                    TriggerServerEvent('esx_armor:delArmorItem')
                 end
-                TriggerEvent('esx_armor:setDelArmor')
-                TriggerServerEvent('esx_armor:delArmorItem')
-            end]]
+            end
 
             Citizen.Wait(Config.Refresh * 1000)
+        end
+    end
+end)
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(playerData)
+    local playerPed = PlayerPedId()
+    local playerArmor = GetPedArmour(playerPed)
+    local xPlayer = ESX.IsPlayerLoaded(playerPed)
+
+    Citizen.Wait(1000 * 10)
+
+    if xPlayer then
+        if playerArmor == 0 then
+            if Config.Debug then
+                print('Armor are 0, remove Vest')
+            end
+            TriggerEvent('esx_armor:setDelArmor')
+            TriggerServerEvent('esx_armor:delArmorItem')
         end
     end
 end)

@@ -15,6 +15,9 @@ Config.RemoveItem = {
 Config.EnableRefresh = true
 Config.Refresh = 30 -- in seconds (default: 30 seconds)
 ----------------------------------------------------------------
+-- Experimental (not recommended)
+Config.CheckRemoveArmor = false -- Checks the current Armor status and removes the Vest if armor < 5 and > 1
+----------------------------------------------------------------
 -- Set the Armor ID you want to use
 Config.Armors = {
     male = {skin1 = 11, skin2 = 1}, -- Male
