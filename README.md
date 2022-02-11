@@ -51,11 +51,6 @@ Config.Animations = {
     anim = 'try_tie_neutral_a'
 }
 ```
-## Errors
-* SCRIPT ERROR: @esx_armor/server.lua:37: attempt to index a nil value (local 'xPlayer')
-
-Try to change `xPlayer.identifier` to `xPlayer.getIdentifier()`
-
 ## Requirements
 * ESX 1.2 (https://github.com/esx-framework/es_extended/releases/tag/v1-final)
 * Should work with ESX Legacy too but I didn't test it.
