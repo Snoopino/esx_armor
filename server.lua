@@ -1,33 +1,36 @@
 local ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-AddEventHandler('esx:playerLoaded', function(playerId)
-    local xPlayer = ESX.GetPlayerFromId(playerId)
-
-    MySQL.Async.fetchScalar("SELECT * FROM users WHERE identifier = @identifier", { 
-        ['@identifier'] = xPlayer.identifier
-        }, function(data)
-        if data[1] then
-            TriggerClientEvent('esx_armor:setJoinArmor', playerId, data[1].health, data[1].armour)
-        end
-    end)
-
-    if Config.Debug then
-        print('Set Status')
-    end
-end)
-
-ESX.RegisterServerCallback('esx_armor:getDBArmor', function(source)
+-- Not working yet. Fixed with next update
+RegisterServerEvent('esx_armor:getDBArmor')
+AddEventHandler('esx_armor:getDBArmor', function()
     local xPlayer = ESX.GetPlayerFromId(source)
 
+    if Config.Debug then
+        print(source) -- Player ID
+        print(xPlayer) -- table: 0x7f0063ff7160
+    end
+
     MySQL.Async.fetchScalar("SELECT * FROM users WHERE identifier = @identifier", { 
         ['@identifier'] = xPlayer.identifier
         }, function(data)
-        if data[1] then
-            TriggerClientEvent('esx_armor:setJoinArmor', source, data[1].health, data[1].armour)
+            if Config.Debug then
+                print('Data: ' .. data) -- RockstarID
+            end
+        if data then
+            if Config.Debug then
+                print('Armor: ' .. data.armour) -- SCRIPT ERROR: @esx_armor/server.lua:39: attempt to concatenate a nil value (field 'armour')
+                print('Health: ' .. health) -- SCRIPT ERROR: @esx_armor/server.lua:40: attempt to concatenate a nil value (global 'health')
+            end
+            TriggerClientEvent('esx_armor:setJoinArmor', source, data.armour, data.health)
+        else 
+            if Config.Debug then
+                print('data not found')
+            end
         end
     end)
 end)
+-- Not working yet. Fixed with next update
 
 RegisterServerEvent('esx_armor:refreshArmour')
 AddEventHandler('esx_armor:refreshArmour', function(updateHealth, updateArmour)
@@ -61,6 +64,11 @@ end)
 -- Armor Vest 100%
 ESX.RegisterUsableItem('bulletproof', function(source)
 	local xPlayer = ESX.GetPlayerFromId(source)
+    local hasItem = xPlayer.getInventoryItem('nobproof')
+
+    if hasItem.count > 0 then
+        xPlayer.removeInventoryItem('nobproof', 1)
+    end
     
     TriggerClientEvent('esx_armor:setArmor', source, 'bproof_1')
     if Config.RemoveItem.bproof_1 then
@@ -73,6 +81,11 @@ end)
 -- Armor Vest 50%
 ESX.RegisterUsableItem('bulletproof2', function(source)
 	local xPlayer = ESX.GetPlayerFromId(source)
+    local hasItem = xPlayer.getInventoryItem('nobproof')
+
+    if hasItem.count > 0 then
+        xPlayer.removeInventoryItem('nobproof', 1)
+    end
     
     TriggerClientEvent('esx_armor:setArmor', source, 'bproof_2')
     if Config.RemoveItem.bproof_2 then
@@ -85,6 +98,11 @@ end)
 -- Police Armor Vest
 ESX.RegisterUsableItem('bulletproofpolice', function(source)
 	local xPlayer = ESX.GetPlayerFromId(source)
+    local hasItem = xPlayer.getInventoryItem('nobproof')
+
+    if hasItem.count > 0 then
+        xPlayer.removeInventoryItem('nobproof', 1)
+    end
     
     TriggerClientEvent('esx_armor:setArmor', source, 'bproof_police')
     if Config.RemoveItem.bproof_police then

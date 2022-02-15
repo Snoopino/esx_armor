@@ -2,7 +2,7 @@ Config = {}
 ----------------------------------------------------------------
 Config.Locale = 'de'
 Config.VersionChecker = true
-Config.Debug = true
+Config.Debug = false
 ----------------------------------------------------------------
 -- If you want to remove Item after use
 Config.RemoveItem = {

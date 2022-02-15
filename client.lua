@@ -1,5 +1,4 @@
 ESX = nil
-
 Citizen.CreateThread(function()
     --local ESX = exports['es_extended']:getSharedObject() -- Just a Test, don't touch!
 	while ESX == nil do
@@ -8,15 +7,53 @@ Citizen.CreateThread(function()
 	end
 end)
 
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(playerData)
+    local playerPed = PlayerPedId()
+    local xPlayer = ESX.IsPlayerLoaded(playerPed)
+
+    Citizen.Wait(1000 * 5) -- Please Do Not Touch!
+    
+    if xPlayer then
+        TriggerServerEvent('esx_armor:getDBArmor')
+        if Config.Debug then
+            print('Set Join Armor from DB')
+        end
+        Citizen.Wait(1000 * 5) -- Please Do Not Touch!
+        local playerArmor = GetPedArmour(playerPed)
+
+        if playerArmor == 0 then
+            if Config.Debug then
+                print('Armor are 0, remove Vest')
+            end
+            TriggerEvent('esx_armor:setDelArmor')
+            TriggerServerEvent('esx_armor:delArmorItem')
+        end
+    else
+        if Config.Debug then
+            print('xPlayer not found')
+        end
+    end
+end)
+
 RegisterNetEvent('esx_armor:setJoinArmor')
 AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
     local playerPed = PlayerPedId()
 
-    Citizen.Wait(1000 * 10) -- Please Do Not Touch!
-    SetEntityHealth(playerPed, tonumber(health))
-    SetPedArmour(playerPed, tonumber(armour))
+    if Config.Debug then
+        print('Set Join Armor bevor Trigger')
+    end
 
-    if tonumber(armour) > 0 then
+    --SetEntityHealth(playerPed, tonumber(health))
+    --SetPedArmour(playerPed, tonumber(armour))
+    SetEntityHealth(playerPed, health)
+    SetPedArmour(playerPed, armour)
+
+    if Config.Debug then
+        print('Set Join Armor after Trigger')
+    end
+
+    if armour > 0 then
         ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
             if skin.sex == 0 then -- Male
                 TriggerEvent('skinchanger:change', "bproof_1", Config.Armors.male.skin1)
@@ -26,6 +63,10 @@ AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
                 TriggerEvent('skinchanger:change', "bproof_2", Config.Armors.female.skin2)
             end
         end)
+    else
+        if Config.Debug then
+            print('Armour not 0')
+        end
     end
 end)
 
@@ -38,7 +79,7 @@ Citizen.CreateThread(function()
         if Config.EnableRefresh then
             TriggerServerEvent('esx_armor:refreshArmour', GetEntityHealth(playerPed), GetPedArmour(playerPed))
 
-            if Config.CheckRemoveArmor then
+            if Config.CheckRemoveArmor then -- Experimental
                 if playerArmor < 5 and playerArmor > 1 then
                     if Config.Debug then
                         print('Armor are 0')
@@ -49,25 +90,6 @@ Citizen.CreateThread(function()
             end
 
             Citizen.Wait(Config.Refresh * 1000)
-        end
-    end
-end)
-
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(playerData)
-    local playerPed = PlayerPedId()
-    local playerArmor = GetPedArmour(playerPed)
-    local xPlayer = ESX.IsPlayerLoaded(playerPed)
-
-    Citizen.Wait(1000 * 10)
-
-    if xPlayer then
-        if playerArmor == 0 then
-            if Config.Debug then
-                print('Armor are 0, remove Vest')
-            end
-            TriggerEvent('esx_armor:setDelArmor')
-            TriggerServerEvent('esx_armor:delArmorItem')
         end
     end
 end)
@@ -157,6 +179,9 @@ AddEventHandler('esx_armor:setDelArmor', function(id)
     ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
         TriggerEvent('skinchanger:change', "bproof_1", 0)
         TriggerEvent('skinchanger:change', "bproof_2", 0)
+        TriggerEvent('skinchanger:getSkin', function(skin)
+            TriggerServerEvent('esx_skin:save', skin)
+        end)
     end)
 
     SetPedArmour(playerPed, 0)
