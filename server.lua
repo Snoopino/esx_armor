@@ -1,7 +1,6 @@
 local ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
--- Not working yet. Fixed with next update
 RegisterServerEvent('esx_armor:getDBArmor')
 AddEventHandler('esx_armor:getDBArmor', function()
     local xPlayer = ESX.GetPlayerFromId(source)
@@ -11,18 +10,15 @@ AddEventHandler('esx_armor:getDBArmor', function()
         print(xPlayer) -- table: 0x7f0063ff7160
     end
 
-    MySQL.Async.fetchScalar("SELECT * FROM users WHERE identifier = @identifier", { 
+    MySQL.Async.fetchAll("SELECT * FROM users WHERE identifier = @identifier", { 
         ['@identifier'] = xPlayer.identifier
         }, function(data)
+        if data[1] then
             if Config.Debug then
-                print('Data: ' .. data) -- RockstarID
+                print('Health: ' .. data[1].health)
+                print('Armor: ' .. data[1].armour)
             end
-        if data then
-            if Config.Debug then
-                print('Armor: ' .. data.armour) -- SCRIPT ERROR: @esx_armor/server.lua:39: attempt to concatenate a nil value (field 'armour')
-                print('Health: ' .. health) -- SCRIPT ERROR: @esx_armor/server.lua:40: attempt to concatenate a nil value (global 'health')
-            end
-            TriggerClientEvent('esx_armor:setJoinArmor', source, data.armour, data.health)
+            TriggerClientEvent('esx_armor:setJoinArmor', source, data[1].health, data[1].armour) -- SCRIPT ERROR: Execution of native 000000002f7a49e6 in script host failed: Argument at index 1 was null.
         else 
             if Config.Debug then
                 print('data not found')
@@ -30,7 +26,6 @@ AddEventHandler('esx_armor:getDBArmor', function()
         end
     end)
 end)
--- Not working yet. Fixed with next update
 
 RegisterServerEvent('esx_armor:refreshArmour')
 AddEventHandler('esx_armor:refreshArmour', function(updateHealth, updateArmour)

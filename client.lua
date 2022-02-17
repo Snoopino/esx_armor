@@ -12,14 +12,14 @@ AddEventHandler('esx:playerLoaded', function(playerData)
     local playerPed = PlayerPedId()
     local xPlayer = ESX.IsPlayerLoaded(playerPed)
 
-    Citizen.Wait(1000 * 5) -- Please Do Not Touch!
+    Citizen.Wait(1000) -- Please Do Not Touch!
     
     if xPlayer then
         TriggerServerEvent('esx_armor:getDBArmor')
         if Config.Debug then
             print('Set Join Armor from DB')
         end
-        Citizen.Wait(1000 * 5) -- Please Do Not Touch!
+        Citizen.Wait(5000) -- Please Do Not Touch!
         local playerArmor = GetPedArmour(playerPed)
 
         if playerArmor == 0 then
@@ -43,9 +43,7 @@ AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
     if Config.Debug then
         print('Set Join Armor bevor Trigger')
     end
-
-    --SetEntityHealth(playerPed, tonumber(health))
-    --SetPedArmour(playerPed, tonumber(armour))
+    
     SetEntityHealth(playerPed, health)
     SetPedArmour(playerPed, armour)
 
