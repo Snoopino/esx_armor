@@ -2,8 +2,8 @@ fx_version 'adamant'
 games { 'gta5' }
 
 author 'Musiker15'
-description 'ESX Armor | Usable Armor Vests & Status will be saved in Databse'
-version '1.1'
+description 'ESX Armor | Usable Armor Vests, Status will be saved in Databse and restore after Relog'
+version '1.3'
 
 shared_script {
 	'@es_extended/locale.lua',

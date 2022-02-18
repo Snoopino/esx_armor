@@ -1,5 +1,5 @@
 # esx_armor
-FiveM Script - Usable Armor Vests & Status will be saved in Databse
+FiveM Script - Usable Armor Vests, Status will be saved in Databse and restore after Relog
 
 **Forum:** https://forum.cfx.re/t/release-esx-armor-script-usable-armor-vests-status-will-be-saved-in-databse/4812243
 
@@ -8,7 +8,7 @@ FiveM Script - Usable Armor Vests & Status will be saved in Databse
 * With the `nobproof` Item then the Vest will be removed from Ped.
 * Script checks all `Config.Refresh` times your status and save it in database.
 * On Player Joined, if armor status is 0 then the Vest and the Item nobproof will be removed from ped.
-* **Errors will be fixed soon:** ~~If a Player relog then the Player get the saved status from database and a Vest will be added to the Ped.~~
+* If a Player relog then the Player get the saved status from database and a Vest will be added to the Ped.
 * Health and Armor will be saved in Databse.
 
 ## Config
@@ -16,7 +16,7 @@ FiveM Script - Usable Armor Vests & Status will be saved in Databse
 Config = {}
 ----------------------------------------------------------------
 Config.Locale = 'de'
-Config.VersionChecker = false
+Config.VersionChecker = true
 Config.Debug = false
 ----------------------------------------------------------------
 -- If you want to remove Item after use
@@ -30,12 +30,15 @@ Config.RemoveItem = {
 Config.EnableRefresh = true
 Config.Refresh = 30 -- in seconds (default: 30 seconds)
 ----------------------------------------------------------------
+-- Experimental (not recommended)
+Config.CheckRemoveArmor = false -- Checks the current Armor status and removes the Vest if armor < 5 and > 1
+----------------------------------------------------------------
 -- Set the Armor ID you want to use
 Config.Armors = {
     male = {skin1 = 11, skin2 = 1}, -- Male
     female = {skin1 = 3, skin2 = 1}, -- Female
     malepolice = {skin1 = 12, skin2 = 3}, -- Male Police
-    femalepolice = {skin1 = 13, skin2 = 1}, -- Female Police
+    femalepolice = {skin1 = 13, skin2 = 1} -- Female Police
 }
 ----------------------------------------------------------------
 -- How much Armor a Player get from Item
@@ -46,7 +49,7 @@ Config.Percent = {
 }
 ----------------------------------------------------------------
 -- Animation for put on the Vest
-Config.Wait = 1 -- in seconds (default: 1 second)
+Config.AnimWait = 1 -- in seconds (default: 1 second)
 Config.Animations = {
     lib = 'clothingtie',
     anim = 'try_tie_neutral_a'

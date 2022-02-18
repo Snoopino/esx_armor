@@ -3,10 +3,11 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 RegisterServerEvent('esx_armor:getDBArmor')
 AddEventHandler('esx_armor:getDBArmor', function()
-    local xPlayer = ESX.GetPlayerFromId(source)
+    local src = source
+    local xPlayer = ESX.GetPlayerFromId(src)
 
     if Config.Debug then
-        print(source) -- Player ID
+        print(src) -- Player ID
         print(xPlayer) -- table: 0x7f0063ff7160
     end
 
@@ -18,7 +19,7 @@ AddEventHandler('esx_armor:getDBArmor', function()
                 print('Health: ' .. data[1].health)
                 print('Armor: ' .. data[1].armour)
             end
-            TriggerClientEvent('esx_armor:setJoinArmor', source, data[1].health, data[1].armour) -- SCRIPT ERROR: Execution of native 000000002f7a49e6 in script host failed: Argument at index 1 was null.
+            TriggerClientEvent('esx_armor:setJoinArmor', src, data[1].health, data[1].armour) -- SCRIPT ERROR: Execution of native 000000002f7a49e6 in script host failed: Argument at index 1 was null.
         else 
             if Config.Debug then
                 print('data not found')
@@ -39,6 +40,20 @@ AddEventHandler('esx_armor:refreshArmour', function(updateHealth, updateArmour)
 
     if Config.Debug then
         print('Update Status')
+    end
+end)
+
+RegisterServerEvent('esx_armor:setAddArmor')
+AddEventHandler('esx_armor:setAddArmor', function()
+    local xPlayer = ESX.GetPlayerFromId(source)
+    local hasItem = xPlayer.getInventoryItem('nobproof')
+
+    if hasItem.count == 0 then
+        xPlayer.addInventoryItem('nobproof', 1)
+    end
+
+    if Config.Debug then
+        print('Armor Item added')
     end
 end)
 

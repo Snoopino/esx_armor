@@ -39,4 +39,3 @@ Config.Animations = {
     lib = 'clothingtie',
     anim = 'try_tie_neutral_a'
 }
-----------------------------------------------------------------

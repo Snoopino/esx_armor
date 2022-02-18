@@ -16,18 +16,9 @@ AddEventHandler('esx:playerLoaded', function(playerData)
     
     if xPlayer then
         TriggerServerEvent('esx_armor:getDBArmor')
+
         if Config.Debug then
             print('Set Join Armor from DB')
-        end
-        Citizen.Wait(5000) -- Please Do Not Touch!
-        local playerArmor = GetPedArmour(playerPed)
-
-        if playerArmor == 0 then
-            if Config.Debug then
-                print('Armor are 0, remove Vest')
-            end
-            TriggerEvent('esx_armor:setDelArmor')
-            TriggerServerEvent('esx_armor:delArmorItem')
         end
     else
         if Config.Debug then
@@ -43,7 +34,7 @@ AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
     if Config.Debug then
         print('Set Join Armor bevor Trigger')
     end
-    
+
     SetEntityHealth(playerPed, health)
     SetPedArmour(playerPed, armour)
 
@@ -51,7 +42,10 @@ AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
         print('Set Join Armor after Trigger')
     end
 
-    if armour > 0 then
+    Citizen.Wait(1000) -- Please Do Not Touch!
+    local playerArmor = GetPedArmour(playerPed)
+
+    if playerArmor > 0 then
         ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
             if skin.sex == 0 then -- Male
                 TriggerEvent('skinchanger:change', "bproof_1", Config.Armors.male.skin1)
@@ -61,9 +55,13 @@ AddEventHandler('esx_armor:setJoinArmor', function(health, armour)
                 TriggerEvent('skinchanger:change', "bproof_2", Config.Armors.female.skin2)
             end
         end)
+        TriggerServerEvent('esx_armor:setAddArmor')
     else
+        TriggerEvent('esx_armor:setDelArmor')
+        TriggerServerEvent('esx_armor:delArmorItem')
+
         if Config.Debug then
-            print('Armour not 0')
+            print('Armor are 0, remove Vest')
         end
     end
 end)
