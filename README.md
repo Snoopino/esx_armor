@@ -1,5 +1,5 @@
 # esx_armor
-FiveM Script - Usable Armor Vests, Status will be saved in Databse and restore after Relog
+FiveM Script - Usable Armor Vests, Status will be saved in Database and restore after Relog
 
 **Forum:** https://forum.cfx.re/t/release-esx-armor-script-usable-armor-vests-status-will-be-saved-in-databse/4812243
 
