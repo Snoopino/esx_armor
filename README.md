@@ -5,6 +5,8 @@ FiveM Script - Usable Armor Vests, Status will be saved in Database and restore 
 
 **Discord Support:** https://discord.gg/5hHSBRHvJE
 
+If you only want the Save Function in Database look at this Script: https://github.com/Musiker15/esx_status_health-armor
+
 ## Description
 * You can use the `armor` Item then you get `nobproof` Item and a Vest will be added to the Ped.
 * With the `nobproof` Item then the Vest will be removed from Ped.
